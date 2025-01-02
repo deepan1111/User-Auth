@@ -1,4 +1,4 @@
-import { Client, Account } from "appwrite";
+import { Client, Account ,Storage } from "appwrite";
 
 const client = new Client();
 
@@ -8,5 +8,5 @@ client
   .setProject("6765404000114b7fbb40"); // Your Project ID
 
 const account = new Account(client);
-
-export { client, account };
+const storage = new Storage(client);
+export { client, account ,storage };

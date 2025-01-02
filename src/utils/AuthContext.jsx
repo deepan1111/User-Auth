@@ -1,7 +1,7 @@
 
 //utils/AuthContext.jsx
 import { createContext, useState, useEffect, useContext } from "react";
-import { account } from "../appwriteConfig";
+import { account ,storage} from "../appwriteConfig";
 import { ID } from "appwrite";
 
 
@@ -98,12 +98,28 @@ export const AuthProvider = ({children}) => {
                     userInfo.name
                 );
                 console.log("User registered successfully:", response);
+
+                if (userInfo.file) {
+             // Ensure client is set up correctly
+                    const fileResponse = await storage.createFile(
+                        '677644b5000aab5d0b4a', // Bucket ID
+                        ID.unique(), // Unique file ID
+                        userInfo.file // File object
+                    );
+                    console.log("File uploaded successfully:", fileResponse);
+                }
         
                 const sessionResponse = await account.createEmailPasswordSession(
                     userInfo.email,
                     userInfo.password
                 );
                 console.log("Session created successfully:", sessionResponse);
+
+                //start 
+
+                
+
+                //end 
         
                 const accountDetails = await account.get();
                 console.log("Fetched account details:", accountDetails);
